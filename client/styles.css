@@ -1,0 +1,40 @@
+.new-note-container {
+    font-family: "Century gothic", Mistral;
+    font-size: 16pt;
+    color: #330033;
+    margin: 5% 20%;
+}
+
+.note-container {
+    margin: 5% 0%;
+    width: 100%;
+}
+
+.note-container textarea {
+    padding: 10px;
+    background-color: #CC9999;
+    color: #330033;
+    font-family: "Century gothic", Mistral;
+    font-size: 12pt;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    width: 100%;
+}
+
+.date {
+    color: #999999;
+    font-family: "Century gothic", Mistral;
+    font-size: 8pt;
+    text-align: right;
+}
+
+.delete-button {
+    height: 16px;
+    width: 16px;
+    position: absolute;
+    margin-top: 5px;
+    margin-left: 59.2%;
+    background-image: url(del1.png);
+    background-repeat: no-repeat;
+    background-position: right;
+    cursor: pointer;
+}
