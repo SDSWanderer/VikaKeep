@@ -3,22 +3,14 @@
 
     <head>
         <title> MyNotes </title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
         <link rel="stylesheet" type="text/css" href="./styles.css">
     </head>
 
     <body bgcolor="FFFFCC">
-
-        <div class="new-note-container">
-            Enter your note...
-            <textarea id="newNoteInput" name="text" style="width: 100%; padding: 10px;"></textarea>
-            <input id="addButton" type="button" value="Save">
-        </div>
-
-        <div id="notesList" style="margin: 0% 20%;"> </div>
-
         <script type="text/javascript" src="./api.js"> </script>
-        <script type="text/javascript" src="./client.js"> </script>
-
+        <script type="text/jsx;harmony=true" src="./client.jsx"></script>
     </body>
 
 </html>
