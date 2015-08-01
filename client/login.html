@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+
+    <head>
+        <title> Login </title>
+        <link rel="stylesheet" type="text/css" href="./styles.css">
+    </head>
+
+    <body bgcolor="FFFFCC">
+        <a href="#"> Registration </a>
+
+
+        <div class="login">
+            <center> <b> Authorization </b> </center><br>
+            Email <br>
+            <input id="email"type="email"class="input" /> <br>
+            Password <br>
+            <input id="password"type="password" class="input" /> <br>
+            <input id="submitButton" type="button" value="Login"/>
+            <div class="error" id='error' style="visibility: hidden">
+                <p> Wrong email and/or password </p>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="./api.js"> </script>
+        <script type="text/javascript">
+            var email    = document.getElementById('email');
+            var password = document.getElementById('password');
+            var error    = document.getElementById('error');
+
+            document.getElementById('submitButton').onclick = function() {
+                var user = {
+                    email: email.value,
+                    password: password.value
+                };
+
+                API.users.login(user)
+                .then(function(response){
+                    if (response.status == 1) {
+                        window.location = "/notes.html";
+                    }
+                    else {
+                        error.style.visibility = "visible";
+                    }
+                })
+            }
+
+        </script>
+    </body>
+
+</html>

@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "dependencies": {
     "express": "latest",
-    "body-parser": "latest"
+    "body-parser": "latest",
+    "mysql-promise": "latest",
+    "node-uuid": "latest",
+    "cookie-parser": "latest"
   }
 }

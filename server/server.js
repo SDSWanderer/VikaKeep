@@ -1,31 +1,48 @@
-var fs         = require('fs');
-var express    = require('express');
-var bodyParser = require('body-parser');
-var config     = require('./config');
-var storage    = require('./storage');
+var fs           = require('fs');
+var express      = require('express');
+var cookieParser = require('cookie-parser');
+var bodyParser   = require('body-parser');
+var config       = require('./config');
+var storage      = require('./storage');
 
-var app        = express();
+var app = express();
+
+app.use(cookieParser(config.secret));
 app.use(bodyParser.json()); // for parsing application/json
 app.use(express.static('../client'));
 
-app.get('/notes', function(req, res) {
+var auth = function(req, res, next) {
+    var email = req.signedCookies.email;
+    console.log(req.signedCookies);
+
+    if (email) return next();
+    res.send({
+        status: 0,
+        error: "Permission denied"
+    });
+};
+
+app.get('/notes', auth, function(req, res) {
     storage.getNotesList()
     .then(function(notesList){
         res.send({ data: notesList });
     });
 });
 
-app.post('/notes', function(req, res) {
-    storage.createNote(req.body)
+app.post('/notes', auth, function(req, res) {
+    var note  = req.body;
+    note.user = req.signedCookies.email;
+
+    storage.createNote(note)
     .then(function(note) {
         res.send({
-            data: note,
+            data:   note,
             status: 1
         });
     });
 });
 
-app.post('/notes/:id', function(req, res) {
+app.post('/notes/:id', auth, function(req, res) {
     var newNoteData  = req.body;
     newNoteData.id   = req.params.id;
 
@@ -38,12 +55,28 @@ app.post('/notes/:id', function(req, res) {
     });
 });
 
-app.delete('/notes/:id', function(req, res) {
+app.delete('/notes/:id', auth, function(req, res) {
     storage.deleteNote({ id: req.params.id })
-    .then(function(){
+    .then(function() {
         res.send({status: 1})
     });
 });
 
+app.post('/users/login', function(req, res) {
+    storage.loginUser(req.body)
+    .then(function(user) {
+        res.cookie("email", user.email, {signed: true, httpOnly: false})
+        res.send({
+            data: user,
+            status: 1
+        });
+    })
+    .catch(function(error){
+        res.send({
+            status: 0,
+            error: error
+        })
+    })
+});
 
 app.listen(config.port);

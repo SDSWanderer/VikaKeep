@@ -38,3 +38,22 @@
     background-position: right;
     cursor: pointer;
 }
+
+.login {
+    padding: 3% 5%;
+    background-color: #E7EDA5;
+    color: #330033;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    font-family: "Century gothic", Mistral;
+    font-size: 14pt;
+    margin: 12% 35%;
+}
+
+.error {
+    color: #E91D26;
+    font-size: 10pt;
+
+}
+.input {
+    width: 100%
+}
