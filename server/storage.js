@@ -1,4 +1,5 @@
 var db     = require('mysql-promise')();
+var bcrypt = require('bcrypt-nodejs');
 var config = require('./config');
 db.configure(config.db);
 
@@ -28,19 +29,51 @@ var storage = {
         return db.query('UPDATE notes SET isDeleted = true WHERE id = ?', [note.id])
     },
     createUser: function(user) {
-        return db.query('INSERT INTO users (email, password) VALUES (?, ?)', [user.email, user.password])
+        return db.query('INSERT INTO users (email, password, name) VALUES (?, ?, ?)', [user.email, user.password, user.name])
         .then(function() {
             return user;
         });
     },
     loginUser: function(user) {
-        return db.query('SELECT * FROM users WHERE email = ? AND password = ?', [user.email, user.password])
+
+        return db.query('SELECT * FROM users WHERE email = ?', [user.email])
         .spread(function(usersFromDB) {
-            var user = usersFromDB[0];
-            if (!user) {
-                throw "Wrong email or password"
+            var foundUser = usersFromDB[0];
+            if (!foundUser) {
+                throw "User not exist";
             }
-            return user;
+
+            var isValidPassword = bcrypt.compareSync(user.password+foundUser.salt, foundUser.password);
+            if (!isValidPassword) {
+                throw "Wrong password";
+            }
+
+            return {
+                name: user.name,
+                email: user.email
+            };
+        });
+    },
+    registerUser: function(user) {
+        var salt = bcrypt.genSaltSync();
+        var hash = bcrypt.hashSync(user.password+salt);
+
+        return db.query('INSERT INTO users (email, password, salt, name) VALUES (?, ?, ?, ?)', [user.email, hash, salt, user.name])
+        .spread(function() {
+            return {
+                name: user.name,
+                email: user.email
+            };
+        })
+        .catch(function(error) {
+            console.log(error);
+            if (error.code == 'ER_BAD_NULL_ERROR') {
+                throw "All fields are required";
+            }
+            if (error.code == 'ER_DUP_ENTRY') {
+                throw "Email already exist";
+            }
+            throw "UNKNOWN ERROR";
         });
     }
 }

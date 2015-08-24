@@ -12,7 +12,7 @@
 
 .note-container textarea {
     padding: 10px;
-    background-color: #CC9999;
+    background-color: #E7EDA5;
     color: #330033;
     font-family: "Century gothic", Mistral;
     font-size: 12pt;
@@ -41,12 +41,22 @@
 
 .login {
     padding: 3% 5%;
-    background-color: #E7EDA5;
+    background-color: #99FF99;
     color: #330033;
     box-shadow: 0 0 20px rgba(0,0,0,0.5);
     font-family: "Century gothic", Mistral;
     font-size: 14pt;
     margin: 12% 35%;
+}
+
+.registration {
+    padding: 3% 5%;
+    background-color: #E7EDA5;
+    color: #330033;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    font-family: "Century gothic", Mistral;
+    font-size: 14pt;
+    margin: 7% 35%;
 }
 
 .error {
@@ -56,4 +66,15 @@
 }
 .input {
     width: 100%
+}
+.button {
+    background-color: #E1C3FC;
+    border: 2px solid #E1C3FC;
+    margin-top: 10px;
+    width: 100px;
+    font-size: 10pt;
+    color: #330033;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    font-family: "Century gothic", Mistral;
+    cursor: pointer;
 }

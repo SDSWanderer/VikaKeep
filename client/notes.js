@@ -7,7 +7,24 @@ API.notes.list().then(function(notesFromServer) {
         var newNoteContainer       = showNote(resivedFromServerNote); //создание дива с текстом и датой заметки из массива
         notesList.appendChild(newNoteContainer);
     }; //цикл который запихивает заметки из массива в дивы
-});
+})
+.catch(function(error) {
+    if (error == "Permission denied") {
+        return router.login();
+    }
+
+    alert("Some bullshit! " + error);
+})
+;
+
+document.getElementById('logoutButton').onclick = function() {
+    API.users.logout()
+    .then(function(response){
+        if (response.status) {
+           router.login();
+        }
+    })
+};
 
 document.getElementById('addButton').onclick = function() {
     var note = {

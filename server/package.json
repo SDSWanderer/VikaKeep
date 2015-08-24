@@ -6,6 +6,7 @@
     "body-parser": "latest",
     "mysql-promise": "latest",
     "node-uuid": "latest",
-    "cookie-parser": "latest"
+    "cookie-parser": "latest",
+    "bcrypt-nodejs": "latest"
   }
 }

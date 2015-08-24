@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html>
+
+    <head>
+        <title> Registration </title>
+        <link rel="stylesheet" type="text/css" href="./styles.css">
+    </head>
+
+    <body bgcolor="FFFFCC">
+        <input id="loginButton" type="button" class="button" value="Login">
+
+        <div class="registration">
+            <center> <b> Registration </b> </center><br>
+            Email <br>
+            <input id="email" type="email" class="input" /> <br>
+            Name <br>
+            <input id="name" type="text" class="input" /> <br>
+            Password <br>
+            <input id="password" type="password" class="input" /> <br>
+            Repeat password <br>
+            <input id="repeatPassword"type="password" class="input" /> <br>
+            <input id="submitButton" type="button" class="button" value="Register"/>
+            <div class="error" id='error' style="visibility: hidden">
+                <p> Wrong data </p>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="./api.js"> </script>
+        <script type="text/javascript" src="./router.js"> </script>
+        <script type="text/javascript" src="./registration.js"> </script>
+
+    </body>
+
+</html>
